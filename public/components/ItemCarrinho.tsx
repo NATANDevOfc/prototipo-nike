@@ -1,5 +1,6 @@
 // Definição dos tipos de dados
 export interface Item {
+  id: number;
   name: string;
   price: string;
   quantity: number;
@@ -8,6 +9,7 @@ export interface Item {
 
 interface ItemCarrinhoProps {
   item: Item;
+  onDelete: (id: number) => void;
 }
 
 const PlusIcon = () => (
@@ -59,7 +61,7 @@ const TrashIcon = () => (
   </svg>
 );
 
-function ItemCarrinho({ item }: ItemCarrinhoProps) {
+function ItemCarrinho({ item, onDelete }: ItemCarrinhoProps) {
   return (
     <div className="w-full h-[18%] bg-zinc-800 p-3 rounded-lg flex items-center space-x-4 text-white mb-3 last:mb-0">
       {/* Placeholder para a Imagem do Produto */}
@@ -89,7 +91,10 @@ function ItemCarrinho({ item }: ItemCarrinhoProps) {
       </div>
 
       {/* Botão de Remover */}
-      <button className="text-zinc-400 hover:text-red-500 transition-colors self-center pr-5">
+      <button
+        onClick={() => onDelete(item.id)}
+        className="text-zinc-400 hover:text-red-500 transition-colors self-center pr-5"
+      >
         <TrashIcon />
       </button>
     </div>
